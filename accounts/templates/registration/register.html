@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} Register
+{% endblock %}
+{% block extrahead %}
+<style>
+</style>
+{% endblock %}
+
+{% block precontent %}
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2">User Registration</h1>
+    </div>
+</div>
+<main class="container">
+</main>
+{% endblock %}
+
+{% block content %}
+
+{% if next %}
+	<p>ERROR: You cannont access that page.</p>
+{% endif %}
+
+{% if not user.is_authenticated %}
+	<form method="post" action="{%url 'register' %}">
+		{% csrf_token %}
+		{% if form.errors %}
+			<p>ERROR: There's something wrong with the information you've entered.</p>
+		{% endif %}
+
+		{{ form }}
+
+		<p><input type="submit" value="Register"></p>
+	</form>
+
+{% else %}
+<p>You are currently logged in as <b>{{ user.username }}</b>. Please <a href="{% url 'logout' %}">log out</a>
+   in order to register as a new user.</p>
+{% endif %}
+
+{% endblock %}
+

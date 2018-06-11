@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Question List
+{% endblock %}
+{% block extrahead %}
+<style>
+</style>
+{% endblock %}
+
+{% block precontent %}
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2">Question List</h1>
+    </div>
+</div>
+<main class="container">
+<p>This is the list of questions!</p>
+<div>
+	{% for question in questions %}
+	<p>
+	<b>Question:</b> {{question.question_text}}</p>
+	<p><b>Question Type:</b> {{question.question_type}}</p>
+	<hr>
+	{% endfor %}
+</div>
+</main>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+

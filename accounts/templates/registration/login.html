@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} Login
+{% endblock %}
+{% block extrahead %}
+<style>
+</style>
+{% endblock %}
+
+{% block precontent %}
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2">User Login</h1>
+    </div>
+</div>
+<main class="container">
+</main>
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+	<p>ERROR: There's something wrong with the information you've entered.</p>
+{% endif %}
+
+{% if next %}
+	<p>ERROR: You cannont access that page.</p>
+{% endif %}
+
+{% if not user.is_authenticated %}
+<form method="post" action="{%url 'login' %}">
+	{% csrf_token %}
+
+	<p>Username: {{ form.username }}</p>
+	<p>Password: {{ form.password }}</p>
+
+	<p><input type="submit" value="login"></p>
+	<input type="hidden" name="next" value="{{ next }}">
+</form>
+{% else %}
+<p>You are already logged in as: {{ user.username }}.</p>
+{% endif %}
+
+{% endblock %}
+
