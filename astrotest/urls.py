@@ -17,10 +17,16 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+app_url_patterns = [
     path('', include('home.urls')),
     path('questions/', include('questions.urls')),
+    path('exams/', include('exams.urls'))
+]
+
+base_url_patterns = [
+    url(r'^admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^chaining/', include('smart_selects.urls')), # django-smart-selects
 ]
+
+urlpatterns = app_url_patterns + base_url_patterns
