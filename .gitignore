@@ -1,3 +1,11 @@
+# ADDITIONAL IGNORED FILES (db files, mostly)
+# DB files
+astrotest_data
+# development scripts
+reset_script
+rs
+mm
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
