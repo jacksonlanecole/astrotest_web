@@ -2,7 +2,10 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Course, Book, Chapter, Objective, Source, Question, Answer
+from .models import (Course, Book, Chapter, Objective, Source,)
+from .models import MultipleChoiceQuestion, MultipleChoiceAnswer
+from .models import TrueFalseQuestion
+from .models import QuestionBlock, QuestionBlockQuestion
 
 # Register your models here.
 ###############################################################################
@@ -27,12 +30,12 @@ class ObjectiveInline(admin.TabularInline):
     model = Objective
 
 
-class QuestionInline(admin.TabularInline):
-    model = Question
+class MultipleChoiceAnswerInline(admin.TabularInline):
+    model = MultipleChoiceAnswer
 
 
-class AnswerInline(admin.TabularInline):
-    model = Answer
+class QuestionBlockQuestionInline(admin.TabularInline):
+    model = QuestionBlockQuestion
 ###############################################################################
 
 ###############################################################################
@@ -117,18 +120,18 @@ class ChapterAdmin(admin.ModelAdmin):
 class ObjectiveAdmin(admin.ModelAdmin):
     model = Objective
     list_display = (
+            '_objective',
             'custom_objective',
             'course',
             'book',
-            '_objective',
-            '_number_of_questions',
+            '_total_questions',
+            '_multiple_choice_questions',
+            '_TF_questions',
             )
     list_filter = (
             'course',
             'custom_objective',
             'book',
-            'chapter',
-            'objective_number',
             )
     search_fields = (
             'objective_text',
@@ -140,8 +143,16 @@ class ObjectiveAdmin(admin.ModelAdmin):
     def _objective(self, obj):
         return obj.__str__()
 
-    def _number_of_questions(self, obj):
-        return obj.question_set.all().count()
+    def _total_questions(self, obj):
+        return (obj.multiplechoicequestion_set.all().count()
+                + obj.truefalsequestion_set.all().count())
+
+    def _multiple_choice_questions(self, obj):
+        return obj.multiplechoicequestion_set.all().count()
+
+
+    def _TF_questions(self, obj):
+        return obj.multiplechoicequestion_set.all().count()
 
 
 class SourceAdmin(admin.ModelAdmin):
@@ -153,7 +164,7 @@ class SourceAdmin(admin.ModelAdmin):
             'name',
             )
     inlines = [
-            QuestionInline,
+            #QuestionInline,
             ]
     fields = [
             'name',
@@ -163,8 +174,8 @@ class SourceAdmin(admin.ModelAdmin):
         return obj.question_set.all().count()
 
 
-class QuestionAdmin(admin.ModelAdmin):
-    model = Question
+class MultipleChoiceQuestionAdmin(admin.ModelAdmin):
+    model = MultipleChoiceQuestion
     list_display = (
             'question_text',
             'objective',
@@ -182,7 +193,7 @@ class QuestionAdmin(admin.ModelAdmin):
             'objective',
             )
     inlines = [
-            AnswerInline,
+            MultipleChoiceAnswerInline,
             ]
     fields = [
             'course',
@@ -195,6 +206,73 @@ class QuestionAdmin(admin.ModelAdmin):
             'source',
             'index',
             ]
+
+
+class TrueFalseQuestionAdmin(admin.ModelAdmin):
+    model = TrueFalseQuestion
+    list_display = (
+            'question_text',
+            'objective',
+            'difficulty',
+            'created_date',
+            )
+    list_filter = [
+            'course',
+            'book',
+            'objective',
+            'difficulty',
+            'created_date',
+            ]
+    search_fields = (
+            'question_text',
+            'objective',
+            )
+    inlines = [
+            ]
+    fields = [
+            'course',
+            'book',
+            'chapter',
+            'objective',
+            'question_text',
+            'answer',
+            'difficulty',
+            'source',
+            'index',
+            ]
+
+
+class QuestionBlockAdmin(admin.ModelAdmin):
+    model = QuestionBlockQuestion
+    list_display = (
+            'question_text',
+            'objective',
+            '_number_of_questions',
+            )
+    list_filter = [
+            'course',
+            'book',
+            'objective',
+            'difficulty',
+            ]
+    search_fields = (
+            'question_text',
+            'objective',
+            )
+    inlines = [
+            QuestionBlockQuestionInline,
+            ]
+    fields = [
+            'course',
+            'book',
+            'chapter',
+            'objective',
+            'question_text',
+            'index',
+            ]
+
+    def _number_of_questions(self, obj):
+        return obj.questionblockquestion_set.all().count()
 ###############################################################################
 
 ###############################################################################
@@ -223,9 +301,21 @@ admin.site.register(
         Objective,
         ObjectiveAdmin,
         )
+########################################
+## QUESTIONS
+admin.site.register(
+        MultipleChoiceQuestion,
+        MultipleChoiceQuestionAdmin,
+        )
 
 admin.site.register(
-        Question,
-        QuestionAdmin,
+        TrueFalseQuestion,
+        TrueFalseQuestionAdmin,
         )
+
+admin.site.register(
+        QuestionBlock,
+        QuestionBlockAdmin,
+        )
+########################################
 ###############################################################################

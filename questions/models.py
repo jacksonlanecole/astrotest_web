@@ -182,6 +182,8 @@ class Objective(models.Model):
     objective_number = models.PositiveSmallIntegerField(
             null=True,
             blank=True,
+            unique=True,
+            verbose_name = "objective number",
             )
     objective_text = models.CharField(
             max_length=400,
@@ -217,6 +219,8 @@ class Source(models.Model):
             max_length=30,
             help_text="Enter the name of a new source. (e.g. book, " \
             "testbank, homework, clicker, etc.)",
+            unique = True,
+            verbose_name = "source name",
             )
     ###########################################################################
     def __str__(self):
@@ -292,11 +296,8 @@ class Question(models.Model):
     question_text = models.TextField(
             help_text="Enter the question here! LaTeX formatting is "\
             "accepted... It's just going to be turned into LaTeX "\
-            "anyways!"
-            )
-    scrambleable = models.BooleanField(
-            help_text="Select this box if the order of the answers in "\
-            "the question does not matter."
+            "anyways!",
+            unique = True,
             )
     DIFFICULTY_CHOICES = (
             (1, '1 (Easy)'),
@@ -322,17 +323,32 @@ class Question(models.Model):
         return self.question_text
 
     class Meta:
+        abstract = True
         verbose_name = "question"
         verbose_name_plural = "questions"
 
 
-class Answer(models.Model):
+class MultipleChoiceQuestion(Question):
+    question_type = "MC"
+    scrambleable = models.BooleanField(
+            help_text="(REQUIRED) Select this box if the order of the answers in "\
+            "the question does not matter.",
+            null=False,
+            blank=False,
+            )
+
+    class Meta:
+        verbose_name = "multiple choice question"
+        verbose_name_plural = "multiple choice questions"
+
+
+class MultipleChoiceAnswer(models.Model):
     """
     """
     ###########################################################################
     # FOREIGNKEYS
     question = models.ForeignKey(
-            Question,
+            MultipleChoiceQuestion,
             on_delete=models.PROTECT,
             related_name='answers',
             )
@@ -342,10 +358,12 @@ class Answer(models.Model):
     # FIELDS
     answer_text = models.CharField(
             max_length=255,
+            unique = True,
             )
     correct = models.BooleanField(
             'Correct answer',
             default=False,
+            unique = True,
             )
     ###########################################################################
 
@@ -355,3 +373,93 @@ class Answer(models.Model):
     class Meta:
         verbose_name = "answer"
         verbose_name_plural = "answers"
+
+
+class TrueFalseQuestion(Question):
+    question_type = "TF"
+    answer = models.NullBooleanField(
+            help_text="Select box if True, leave unselected if false.",
+            )
+
+    class Meta:
+        verbose_name = "True/False question"
+        verbose_name_plural = "True/False questions"
+
+
+
+class QuestionBlock(Question):
+
+    class Meta:
+        verbose_name = "question block"
+        verbose_name_plural = "question blocks"
+
+
+class QuestionBlockQuestion(models.Model):
+    master_question = models.ForeignKey(
+            QuestionBlock,
+            on_delete=models.PROTECT,
+            null=False,
+            blank=False,
+            )
+
+    qb_question_text = models.TextField(
+            help_text="Enter the question here! LaTeX formatting is "\
+            "accepted... It's just going to be turned into LaTeX "\
+            "anyways!",
+            unique = True,
+            )
+    DIFFICULTY_CHOICES = (
+            (1, '1 (Easy)'),
+            (2, '2 (Moderate)'),
+            (3, '3 (Difficult)'),
+            )
+    difficulty = models.PositiveSmallIntegerField(
+            choices=DIFFICULTY_CHOICES,
+            default=1,
+            )
+    index = models.PositiveSmallIntegerField(
+            default=50,
+            blank=True,
+            null=True,
+            help_text="I'm not really sure why this is needed...",
+            )
+    created_date = models.DateField(
+            auto_now=True,
+            )
+
+    class Meta:
+        verbose_name = "question block question"
+        verbose_name_plural = "question block questions"
+
+
+#class QuestionBlockQuestionAnswer(models.Model):
+#    ###########################################################################
+#    # FOREIGNKEYS
+#    question_block_question = models.ForeignKey(
+#            QuestionBlockQuestion,
+#            on_delete=models.PROTECT,
+#            null=False,
+#            blank=True,
+#            )
+#    ###########################################################################
+#
+#    ###########################################################################
+#    # FIELDS
+#    answer_text = models.CharField(
+#            max_length=255,
+#            unique = True,
+#            )
+#    correct = models.BooleanField(
+#            'Correct answer',
+#            default=False,
+#            unique = True,
+#            )
+#    ###########################################################################
+#
+#    def __str__(self):
+#        return self.answer_text
+#
+#    class Meta:
+#        verbose_name = "answer"
+#        verbose_name_plural = "answers"
+
