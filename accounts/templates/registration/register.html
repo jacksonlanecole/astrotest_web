@@ -23,19 +23,19 @@
 {% endif %}
 
 {% if not user.is_authenticated %}
-	<form method="post" action="{%url 'register' %}">
+	<form method="post" action="{% url 'accounts:register' %}">
 		{% csrf_token %}
 		{% if form.errors %}
 			<p>ERROR: There's something wrong with the information you've entered.</p>
 		{% endif %}
 
-		{{ form }}
+		{{ form.as_p }}
 
 		<p><input type="submit" value="Register"></p>
 	</form>
 
 {% else %}
-<p>You are currently logged in as <b>{{ user.username }}</b>. Please <a href="{% url 'logout' %}">log out</a>
+<p>You are currently logged in as <b>{{ user.username }}</b>. Please <a href="{% url 'accounts:logout' %}">log out</a>
    in order to register as a new user.</p>
 {% endif %}
 
