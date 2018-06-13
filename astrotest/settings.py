@@ -43,6 +43,7 @@ MY_APPS = [
     'questions',
     'home',
     'accounts',
+    'exams',
     ]
 
 OPEN_SOURCE = [

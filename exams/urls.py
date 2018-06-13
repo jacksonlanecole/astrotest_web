@@ -15,24 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url, include
-# IMAGE SERVING IN DEVELOPMENT
-from django.conf import settings
-from django.conf.urls.static import static
+#from django.conf.urls import url
+from . import views
 
-app_url_patterns = [
-    path('', include('home.urls')),
-    path('accounts/', include('accounts.urls')),
-    path('questions/', include('questions.urls')),
-    path('exams/', include('exams.urls')),
+urlpatterns = [
 ]
-
-base_url_patterns = [
-    url(r'^admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    url(r'^chaining/', include('smart_selects.urls')), # django-smart-selects
-]
-
-urlpatterns = app_url_patterns + base_url_patterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
