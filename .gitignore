@@ -1,6 +1,8 @@
 # ADDITIONAL IGNORED FILES (db files, mostly)
 # DB files
 astrotest_data
+# MEDIA
+media/*.*
 # development scripts
 reset_script
 rs
