@@ -182,7 +182,6 @@ class Objective(models.Model):
     objective_number = models.PositiveSmallIntegerField(
             null=True,
             blank=True,
-            unique=True,
             verbose_name = "objective number",
             )
     objective_text = models.CharField(
@@ -196,9 +195,15 @@ class Objective(models.Model):
         """
         if self.custom_objective == True:
             return "(CO) " + self.objective_text
+        elif self.book == None:
+            return "(" + str(self.chapter.number) + "." \
+                   + str(self.objective_number) + ")" + " " \
+                   + "(...) " \
+                   + self.objective_text
         else:
             return "(" + str(self.chapter.number) + "." \
                    + str(self.objective_number) + ")" + " " \
+                   + "(" + (self.book.title)[:25] + "...) " \
                    + self.objective_text
 
     class Meta:
@@ -242,46 +247,49 @@ class Question(models.Model):
     course = models.ForeignKey(
             Course,
             on_delete=models.PROTECT,
+            null=True,
+            blank=True,
             )
     source = models.ForeignKey(
             Source,
             on_delete=models.PROTECT,
             )
-    book = ChainedForeignKey(
-            Book,
-            help_text="Select a book from above.",
+    #book = ChainedForeignKey(
+    #        Book,
+    #        help_text="Select a book from above.",
+    #        # BEGIN CHAIN
+    #        chained_field='course',
+    #        chained_model_field='course',
+    #        show_all=False,
+    #        auto_choose=True,
+    #        sort=True,
+    #        # END CHAIN
+    #        on_delete=models.PROTECT,
+    #        null=True,
+    #        blank=True,
+    #        )
+    #chapter = ChainedForeignKey(
+    #        Chapter,
+    #        help_text="Select a chapter from above.",
+    #        # BEGIN CHAIN
+    #        chained_field='book',
+    #        chained_model_field='book',
+    #        show_all=False,
+    #        auto_choose=True,
+    #        sort=True,
+    #        # END CHAIN
+    #        on_delete=models.PROTECT,
+    #        null=True,
+    #        blank=True,
+    #        )
+    objective = ChainedForeignKey(
+            Objective,
+            help_text="(REQUIRED) Select an objective. If your objective is "\
+                    "a custom objective, those will be prefixed by (CO).",
             # BEGIN CHAIN
             chained_field='course',
             chained_model_field='course',
-            show_all=False,
-            auto_choose=True,
-            sort=True,
-            # END CHAIN
-            on_delete=models.PROTECT,
-            null=True,
-            blank=True,
-            )
-    chapter = ChainedForeignKey(
-            Chapter,
-            help_text="Select a chapter from above.",
-            # BEGIN CHAIN
-            chained_field='book',
-            chained_model_field='book',
-            show_all=False,
-            auto_choose=True,
-            sort=True,
-            # END CHAIN
-            on_delete=models.PROTECT,
-            null=True,
-            blank=True,
-            )
-    objective = ChainedForeignKey(
-            Objective,
-            help_text="(REQUIRED) Select an objective.",
-            # BEGIN CHAIN
-            chained_field='chapter',
-            chained_model_field='chapter',
-            show_all=False,
+            show_all=True,
             auto_choose=True,
             sort=True,
             # END CHAIN
@@ -298,6 +306,11 @@ class Question(models.Model):
             "accepted... It's just going to be turned into LaTeX "\
             "anyways!",
             unique = True,
+            )
+    image = models.ImageField(
+            help_text="",
+            null=True,
+            blank=True,
             )
     DIFFICULTY_CHOICES = (
             (1, '1 (Easy)'),
@@ -363,7 +376,6 @@ class MultipleChoiceAnswer(models.Model):
     correct = models.BooleanField(
             'Correct answer',
             default=False,
-            unique = True,
             )
     ###########################################################################
 
@@ -395,18 +407,30 @@ class QuestionBlock(Question):
 
 
 class QuestionBlockQuestion(models.Model):
+    """
+    """
+    ###########################################################################
+    # FOREIGNKEYS
     master_question = models.ForeignKey(
             QuestionBlock,
             on_delete=models.PROTECT,
             null=False,
             blank=False,
             )
+    ###########################################################################
 
-    qb_question_text = models.TextField(
+    ###########################################################################
+    # FIELDS
+    question_text = models.TextField(
             help_text="Enter the question here! LaTeX formatting is "\
             "accepted... It's just going to be turned into LaTeX "\
             "anyways!",
             unique = True,
+            )
+    image = models.ImageField(
+            help_text="",
+            null=True,
+            blank=True,
             )
     DIFFICULTY_CHOICES = (
             (1, '1 (Easy)'),
@@ -417,49 +441,55 @@ class QuestionBlockQuestion(models.Model):
             choices=DIFFICULTY_CHOICES,
             default=1,
             )
-    index = models.PositiveSmallIntegerField(
-            default=50,
-            blank=True,
-            null=True,
-            help_text="I'm not really sure why this is needed...",
-            )
     created_date = models.DateField(
             auto_now=True,
             )
+    ###########################################################################
+
+    def __str__(self):
+        return self.question_text
 
     class Meta:
+        abstract = True
         verbose_name = "question block question"
         verbose_name_plural = "question block questions"
 
+    def __str__(self):
+        return self.question_text
 
-#class QuestionBlockQuestionAnswer(models.Model):
-#    ###########################################################################
-#    # FOREIGNKEYS
-#    question_block_question = models.ForeignKey(
-#            QuestionBlockQuestion,
-#            on_delete=models.PROTECT,
-#            null=False,
-#            blank=True,
-#            )
-#    ###########################################################################
-#
-#    ###########################################################################
-#    # FIELDS
-#    answer_text = models.CharField(
-#            max_length=255,
-#            unique = True,
-#            )
-#    correct = models.BooleanField(
-#            'Correct answer',
-#            default=False,
-#            unique = True,
-#            )
-#    ###########################################################################
-#
-#    def __str__(self):
-#        return self.answer_text
-#
-#    class Meta:
-#        verbose_name = "answer"
-#        verbose_name_plural = "answers"
+    class Meta:
+        verbose_name = "question block: question"
+        verbose_name_plural = "question block: questions"
+
+
+class QuestionBlockQuestionAnswer(models.Model):
+    ###########################################################################
+    # FOREIGNKEYS
+    question_block_question = models.ForeignKey(
+            QuestionBlockQuestion,
+            on_delete=models.PROTECT,
+            null=False,
+            blank=True,
+            )
+    ###########################################################################
+
+    ###########################################################################
+    # FIELDS
+    answer_text = models.CharField(
+            max_length=255,
+            unique = True,
+            )
+    correct = models.BooleanField(
+            'Correct answer',
+            default=False,
+            unique = True,
+            )
+    ###########################################################################
+
+    def __str__(self):
+        return self.answer_text
+
+    class Meta:
+        verbose_name = "answer"
+        verbose_name_plural = "answers"
 
