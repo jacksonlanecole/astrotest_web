@@ -112,12 +112,12 @@
 		<span class="navbar-text">
 			Username: {{ user.username }}
 			<!--Email: {{ user.email }}-->
-			<a class="btn btn-outline bg-dark" type="button" href="{% url 'logout' %}?next={% url 'login' %}">Log Out</a>
+			<a class="btn btn-outline bg-dark" type="button" href="{% url 'logout' %}?next={% url 'accounts:login' %}">Log Out</a>
 		</span>
 		{% else %}
 		<form class="form-inline">
-			<a class="btn btn-outline bg-dark" type="button" href="{% url 'register' %}">Sign Up</a>
-			<a class="btn btn-outline bg-dark" type="button" href="{% url 'login' %}">Log In</a>
+			<a class="btn btn-outline bg-dark" type="button" href="{% url 'accounts:register' %}">Sign Up</a>
+			<a class="btn btn-outline bg-dark" type="button" href="{% url 'accounts:login' %}">Log In</a>
 		</form>
 		{% endif %}
 
