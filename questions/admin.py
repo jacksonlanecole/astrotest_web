@@ -2,10 +2,20 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import (Course, Book, Chapter, Objective, Source,)
+from .models import (
+        Course,
+        Book,
+        Chapter,
+        Objective,
+        Source,
+        )
 from .models import MultipleChoiceQuestion, MultipleChoiceAnswer
 from .models import TrueFalseQuestion
-from .models import QuestionBlock, QuestionBlockQuestion
+from .models import (
+        QuestionBlock,
+        QuestionBlockQuestion,
+        QuestionBlockQuestionAnswer,
+        )
 
 # Register your models here.
 ###############################################################################
@@ -36,6 +46,11 @@ class MultipleChoiceAnswerInline(admin.TabularInline):
 
 class QuestionBlockQuestionInline(admin.TabularInline):
     model = QuestionBlockQuestion
+    show_change_link = True
+
+
+class QuestionBlockQuestionAnswerInline(admin.TabularInline):
+    model = QuestionBlockQuestionAnswer
 ###############################################################################
 
 ###############################################################################
@@ -180,6 +195,7 @@ class MultipleChoiceQuestionAdmin(admin.ModelAdmin):
             'question_text',
             'objective',
             'difficulty',
+            'image',
             'created_date',
             )
     list_filter = [
@@ -197,10 +213,11 @@ class MultipleChoiceQuestionAdmin(admin.ModelAdmin):
             ]
     fields = [
             'course',
-            'book',
-            'chapter',
+            #'book',
+            #'chapter',
             'objective',
             'question_text',
+            'image',
             'scrambleable',
             'difficulty',
             'source',
@@ -214,11 +231,12 @@ class TrueFalseQuestionAdmin(admin.ModelAdmin):
             'question_text',
             'objective',
             'difficulty',
+            'image',
             'created_date',
             )
     list_filter = [
             'course',
-            'book',
+            #'book',
             'objective',
             'difficulty',
             'created_date',
@@ -231,10 +249,11 @@ class TrueFalseQuestionAdmin(admin.ModelAdmin):
             ]
     fields = [
             'course',
-            'book',
-            'chapter',
+            #'book',
+            #'chapter',
             'objective',
             'question_text',
+            'image',
             'answer',
             'difficulty',
             'source',
@@ -243,15 +262,16 @@ class TrueFalseQuestionAdmin(admin.ModelAdmin):
 
 
 class QuestionBlockAdmin(admin.ModelAdmin):
-    model = QuestionBlockQuestion
+    model = QuestionBlock
     list_display = (
             'question_text',
             'objective',
+            'image',
             '_number_of_questions',
             )
     list_filter = [
             'course',
-            'book',
+            #'book',
             'objective',
             'difficulty',
             ]
@@ -264,15 +284,18 @@ class QuestionBlockAdmin(admin.ModelAdmin):
             ]
     fields = [
             'course',
-            'book',
-            'chapter',
+            #'book',
+            #'chapter',
             'objective',
             'question_text',
+            'image',
             'index',
             ]
 
+
     def _number_of_questions(self, obj):
         return obj.questionblockquestion_set.all().count()
+
 ###############################################################################
 
 ###############################################################################
@@ -316,6 +339,10 @@ admin.site.register(
 admin.site.register(
         QuestionBlock,
         QuestionBlockAdmin,
+        )
+
+admin.site.register(
+        QuestionBlockQuestion,
         )
 ########################################
 ###############################################################################
