@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+# IMAGE SERVING IN DEVELOPMENT
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('', include('home.urls')),
     path('questions/', include('questions.urls')),
+    path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^chaining/', include('smart_selects.urls')), # django-smart-selects
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
