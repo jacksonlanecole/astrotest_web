@@ -48,6 +48,7 @@ MY_APPS = [
 
 OPEN_SOURCE = [
     'smart_selects',
+    'polymorphic',
     ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + OPEN_SOURCE
