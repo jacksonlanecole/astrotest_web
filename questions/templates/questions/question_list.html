@@ -12,19 +12,19 @@
         <h1 class="display-2">Question List</h1>
     </div>
 </div>
+{% endblock %}
+
+{% block content %}
 <main class="container">
 <p>This is the list of questions!</p>
 <div>
-	{% for question in questions %}
+	{% for objective in objectives %}
 	<p>
-	<b>Question:</b> {{question.question_text}}</p>
-	<p><b>Question Type:</b> {{question.question_type}}</p>
+	<b>Course:</b> {{ objective.course }}</p>
+	<b>Objective:</b> {{ objective.objective_text }}</p>
 	<hr>
 	{% endfor %}
 </div>
 </main>
-{% endblock %}
-
-{% block content %}
 {% endblock %}
 
