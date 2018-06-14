@@ -19,4 +19,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('exam_test/', views.exam, name='exam_test'),
 ]
