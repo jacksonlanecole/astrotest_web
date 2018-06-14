@@ -139,9 +139,9 @@ class ObjectiveAdmin(admin.ModelAdmin):
             'custom_objective',
             'course',
             'book',
-            '_total_questions',
-            '_multiple_choice_questions',
-            '_TF_questions',
+            #'_total_questions',
+            #'_multiple_choice_questions',
+            #'_TF_questions',
             )
     list_filter = (
             'course',
@@ -158,16 +158,16 @@ class ObjectiveAdmin(admin.ModelAdmin):
     def _objective(self, obj):
         return obj.__str__()
 
-    def _total_questions(self, obj):
-        return (obj.multiplechoicequestion_set.all().count()
-                + obj.truefalsequestion_set.all().count())
+    #def _total_questions(self, obj):
+    #    return (obj.multiplechoicequestion_set.all().count()
+    #            + obj.truefalsequestion_set.all().count())
 
-    def _multiple_choice_questions(self, obj):
-        return obj.multiplechoicequestion_set.all().count()
+    #def _multiple_choice_questions(self, obj):
+    #    return obj.multiplechoicequestion_set.all().count()
 
 
-    def _TF_questions(self, obj):
-        return obj.multiplechoicequestion_set.all().count()
+    #def _TF_questions(self, obj):
+    #    return obj.truefalsequestion_set.all().count()
 
 
 class SourceAdmin(admin.ModelAdmin):
