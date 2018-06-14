@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from smart_selects.db_fields import ChainedForeignKey
 
+from polymorphic.models import PolymorphicModel
+
 # Create your models here.
 class Course(models.Model):
     """
@@ -239,7 +241,7 @@ class Source(models.Model):
         verbose_name_plural = "sources"
 
 
-class Question(models.Model):
+class Question(PolymorphicModel):
     """
     """
     ###########################################################################
@@ -336,7 +338,7 @@ class Question(models.Model):
         return self.question_text
 
     class Meta:
-        abstract = True
+        abstract = False
         verbose_name = "question"
         verbose_name_plural = "questions"
 
@@ -371,7 +373,6 @@ class MultipleChoiceAnswer(models.Model):
     # FIELDS
     answer_text = models.CharField(
             max_length=255,
-            unique = True,
             )
     correct = models.BooleanField(
             'Correct answer',
@@ -477,12 +478,10 @@ class QuestionBlockQuestionAnswer(models.Model):
     # FIELDS
     answer_text = models.CharField(
             max_length=255,
-            unique = True,
             )
     correct = models.BooleanField(
             'Correct answer',
             default=False,
-            unique = True,
             )
     ###########################################################################
 
