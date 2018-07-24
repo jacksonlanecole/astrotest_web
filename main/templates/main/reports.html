@@ -1,0 +1,19 @@
+{% extends "tutoring/base.html" %}
+{% block title %} Reports
+{% endblock %}
+{% block extrahead %}
+{% endblock %}
+
+
+{% block content %}
+
+{% for report in reports %}
+<h1>{{ report }}</h1>
+	{% autoescape off %}
+	<div>
+		{{ report.content }}
+	<div>
+	{% endautoescape %}
+{% endfor %}
+
+{% endblock %}

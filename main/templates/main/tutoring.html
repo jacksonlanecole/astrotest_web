@@ -1,0 +1,387 @@
+{% extends 'base.html' %}
+{% block title %} Tutoring
+{% endblock %}
+{% block extrahead %}
+<style>
+/*
+ * Typography
+ */
+
+h1 {
+  margin-bottom: 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  border-right: 1px solid #eee;
+}
+
+/* Sidebar navigation */
+.sidebar {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar .nav {
+  margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+  width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+  margin-left: 0;
+}
+
+.sidebar .nav-link {
+  border-radius: 0;
+}
+
+/*
+ * Dashboard
+ */
+
+ /* Placeholders */
+.placeholders {
+  padding-bottom: 3rem;
+}
+
+.placeholder img {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+</style>
+{% endblock %}
+
+{% block precontent %}
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2">Tutoring</h1>
+        <p>
+        Below you’ll find information relating to my private tutoring services! If
+        you are a returning tutee or parent, feel free to bypass all of the information
+        and <a href="#schedule-a-session">schedule a session</a>.
+        </p>
+    </div>
+</div>
+<!--
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#subjects-offered">Subjects offered</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#why-schedule-a-session-with-me">Why schedule a session with me?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#schedule-a-session">Schedule a session</a> </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div> -->
+
+{% endblock %}
+
+{% block content %}
+<!--<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+<div class="page-header">
+    <h1 class="display-1">Tutoring</h1>
+</div>-->
+
+<h1 class="display-4" id="subjects-offered">Subjects Offered</h1>
+<h3 id="mathematics">Mathematics</h3>
+<ul>
+    <li>High-school Algebra</li>
+    <li>College Algebra</li>
+    <li>Calculus
+        <ul>
+            <li>Topics and methods corresponding to those covered in
+                Calculus I, II, and III</li>
+        </ul>
+    </li>
+    <li>Linear Algebra</li>
+    <li>Differential Equations</li>
+    <li>Vector Analysis</li>
+</ul>
+
+<h3 id="physics">Physics</h3>
+<ul>
+    <li>Calculus-based introductory physics
+        <ul>
+            <li>Vectors/vector calculus/vector analysis</li>
+            <li>Momentum/momentum principle/applications of conservation of momentum</li>
+            <li>Forces</li>
+            <li>Simple harmonic motion (SHM)</li>
+            <li>Circular motion</li>
+            <li>Rotational kinetic energy</li>
+            <li>Torque and angular momentum</li>
+            <li>Work and energy/applications of conservation of energy</li>
+            <li>Collisions</li>
+        </ul>
+    </li>
+    <li>Algebra-based introductory physics
+        <ul>
+            <li>Kinematics in one, two, and three dimensions</li>
+            <li>Optics</li>
+            <li>Blackbody Radiation</li>
+            <li>Photoelectric effect</li>
+            <li>Atomic Physics</li>
+            <li>Nuclear Physics</li>
+            <li>Electricity and Magnetism</li>
+            <li>Circuits</li>
+        </ul>
+    </li>
+</ul>
+
+<!-- ### Astronomy
+**UNDER DEVELOPMENT**
+-->
+
+<h1 class="display-4" id="why-schedule-a-session-with-me">Why schedule a session with me?</h1>
+<h3 id="1-perspective-matters">1. Perspective Matters</h3>
+<p>Physics students can often offer a unique perspective on problem solving in many
+subject areas, but specifically with mathematics, a background in physics can
+lend itself well to developing physical intuition for mathematical problem
+solving. In other words, sometimes (most of the time…) physics is really
+difficult, and in order to solve problems quickly, you are forced to make the
+math second nature.</p>
+
+<p>It’s like playing hockey! I don’t play hockey, but I assume it’s like hockey?
+Anyways…
+if you go to an NHL game, you watch three periods
+of overly athletic dudes floating across the ice <strong>on ice-skates</strong>
+forwards, backwards, sometimes stopping virtually on a dime <strong>on ice-skates</strong>,
+all the while they also are shooting a puck at unreasonable velocities
+<strong>on ice-skates</strong> and occasionally brawling
+over the heat of the game… <strong>on ice-skates</strong>.</p>
+
+<p>They are also <strong>on ice-skates</strong>.</p>
+
+<p>Okay, that may have been a horrible analogy, but my point is this: some people
+are really good at ice-skating, but would have a rough time keeping up with the
+demands of a hockey-game. In order to even compete at the lowest-level, you
+have to have the utmost control over your skates. In order to do good physics,
+you have to really know your algebra and you should feel pretty dang good about
+your calculus.</p>
+
+<p>Physics students know first hand that algebra and calculus are inherently
+difficult, so we find ways to make it as easy to grasp as humanly possible.
+Tips, tricks, intuition… whatever you call it, we’ve got the math experience
+to help you!</p>
+
+<h3 id="2-quality-of-work">2. Quality of Work</h3>
+<p>I pride myself on attention to detail and quality of work. If you schedule a
+tutoring session with me for you or your child I plan to provide them with
+the highest-quality session I know how to provide. I will to take into
+consideration all information and concerns given to me and will make sure to
+hit on areas in which I’ve noticed past students struggle.</p>
+
+<p>To see proof that I believe in doing quality work, and that I can actually do
+do math sometimes, please look at one of my solutions from one of my upper
+division courses <a href="/static/img/example_solution.pdf">here</a>.</p>
+
+<h3 id="3-relatability">3. Relatability</h3>
+<p>Honestly, I recall graduating high school and immediately saying to my girlfriend
+“I CAN’T BELIEVE I never have to take another math class!”</p>
+
+<p>Somehow, I wound up taking on a degree in physics…</p>
+
+<p>In high school, math wasn’t really my <em>thing</em>,
+and I definitely didn’t think it was all that exciting, so I totally understand
+where most students are coming from when they're having feelings of:
+<ul>
+    <li>"Uh... when will we <em>ever</em> use this?"</li>
+    <li>"This is basically impossible..."</li>
+    <li>"I HATE EVERYTHING ABOUT THIS CLASS OH MY GOSH"</li>
+</ul>
+I've been there, done that. Now, I think math is pretty cool and it certainly
+is useful for the things I do, so I want to help others at least hate it less!
+</p>
+
+<p>Sometimes, honestly, I know I’m not going to change someone’s opinion on math
+or physics. If you hate it, you hate it, but I’ll still try to point out ways
+that you can apply what you’re learning to the real world.</p>
+
+<p>Most of the time,
+the fact of the matter is that you just need to know what a discriminant is so
+you can pass your college algebra course and <em>you’ll never need to know it again</em>…
+probably? I can get you to knowing all you need to know for your assignments
+and tests so that in your course you find success!
+</p>
+
+<h1 class="display-4" id="schedule-a-session">Schedule a session</h1>
+<!--Tutoring requests can be made by emailing <a href="mailto:tutoring@jacksoncole.io?
+subject=Tutoring Request">tutoring@jacksoncole.io</a> with the necessary
+information or by simply filling out the form below. <font color="red">*</font>
+indicates a required field.-->
+
+<p>Tutoring requests can be made by simply filling out the form below.</p>
+
+<form id="contactform" action="https://formspree.io/tutoring@jacksoncole.io" method="POST">
+<script>
+    UPLOADCARE_PUBLIC_KEY = '5613b4c9d093833377fd';
+</script>
+<script charset="utf-8" src="https://ucarecdn.com/libs/widget/3.2.1/uploadcare.full.min.js"></script>
+	<h3>General Information</h3>
+    <input required type="hidden" name="_subject" value="Tutoring Request" />
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input name="name" type="text" class="form-control" placeholder="Name" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input name="_replyto" type="text" class="form-control" placeholder="Email" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputSubject" class="col-sm-2 col-form-label">Subject</label>
+        <div class="col-sm-10">
+            <input name="subject" type="text" class="form-control" placeholder="Subject" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputGrade" class="col-sm-2 col-form-label">Grade Level/Year</label>
+        <div class="col-sm-10">
+            <input name="gradeLevel/Year" type="text" class="form-control" placeholder="Grade Level/Year" required>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="textArea">Give me some information about the difficulties you're having:</label>
+        <textarea required class="form-control" name="difficulties" rows="5"></textarea>
+    </div>
+
+	<p>Please upload any supporting documents you may have! These can be
+	images/PDFs of review packets, your own work and issues you're having with
+	particular problems, or your notes. I want to find a way to best help you!</p>
+
+	<p><em>Note:</em> Here, please prepend your name to the filename so I can
+	keep track of it more easily! If you are uploading "file.pdf," please rename
+	it as "last_name-first_name-file.pdf."</p>
+	<input type="hidden" role="uploadcare-uploader" name="content" data-public-key="5bfda2f532a3c0d214fc" data-tabs="file camera url facebook gdrive gphotos dropbox instagram evernote flickr skydrive" data-image-shrink="" data-images-only="false" data-preview-step="false" data-clearable="false" data-multiple="false" data-system-dialog="true" data-crop="false" /><br /><br />
+	
+	<h3>Session Pricing and Selection</h3>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-h31u{font-family:Arial, Helvetica, sans-serif !important;;vertical-align:top}
+.tg .tg-lqy6{text-align:right;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-baqh">Select</th>
+    <th class="tg-h31u">Sessions</th>
+    <th class="tg-yw4l">Pricing<br /></th>
+    <!--<th class="tg-h31u">Rate</th>-->
+    <th class="tg-yw4l">Notes</th>
+  </tr>
+  <tr>
+    <td class="tg-baqh"><input type="radio" name="session_plan" value="individual" required="" /></td>
+    <td class="tg-h31u">Individual Session<br /></td>
+    <td class="tg-lqy6">$30.00<br /></td>
+    <!--<td class="tg-yw4l">$35.00/hr<br></td>-->
+    <td class="tg-yw4l">1 session scheduled whenever there is open availability<br /></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh"><input type="radio" name="session_plan" value="2 sessions" required="" /></td>
+    <td class="tg-h31u">2 Reserved Sessions<br /></td>
+    <td class="tg-lqy6">$55.00<br /></td>
+    <!--<td class="tg-yw4l">$30.00/hr</td>-->
+    <td class="tg-yw4l">2 sessions scheduled at time of payment<br /></td>
+  </tr>
+  <!--
+  <tr>
+    <td class="tg-baqh"><input type="radio" name="session_plan"
+	value="4 sessions"></td>
+    <td class="tg-h31u">4 Reserved Sessions<br></td>
+    <td class="tg-lqy6">$100.00<br></td>
+    <td class="tg-yw4l">$25.00/hr</td>
+    <td class="tg-yw4l">4 sessions scheduled at time of payment<br></td>
+  </tr>
+  -->
+</table><br />
+
+	<h3>Payment Method</h3>
+	<p>Please enter your preferred payment method:</p>
+	<p><em><b>YOU WILL NOT BE PAYING AT THIS TIME.</b> Payment will need to be made
+	prior to the tutoring session, but after the confirmation of the session.
+	Links to PayPal or Venmo information for payment will be sent prior to
+	the session.</em></p>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-s6z2{text-align:center}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-s6z2">Select</th>
+    <th class="tg-s6z2">Payment Method<br /></th>
+  </tr>
+  <tr>
+    <td class="tg-s6z2"><input type="radio" name="payment_type" value="Cash" required="" /></td>
+    <td class="tg-s6z2">Cash</td>
+  </tr>
+  <tr>
+    <td class="tg-s6z2"><input type="radio" name="payment_type" value="PayPal" required="" /></td>
+    <td class="tg-s6z2">
+	<img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" />
+	</td>
+  </tr>
+  <tr>
+      <td class="tg-s6z2"><input type="radio" name="payment_type" value="Venmo" required="" /></td>
+      <td class="tg-baqh">
+          <img src="http://brand.venmo.com/assets/venmo_logo_blue.png" style="height: 17px;" />
+      </td>
+  </tr>
+</table><br />
+	<h3>Session Scheduling</h3>
+	At this time, all scheduling information will be communicated via email
+	after submission of the form. I can work with you!<br /><br />
+
+	<h3>Additional Information</h3>
+    <div class="form-group">
+        <label for="textArea">Any comments/questions/concerns can be added here:</label>
+        <textarea class="form-control" name="comments" rows="5"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<p><br /></p>
+
+<p><em>Note</em>: As of right now, private tutoring is only available locally and in
+public locations, which will be determined on a case by case basis. Coffee
+shops and the Middle Tennessee State University campus are my preferred spots!</p>
+
+
+</div>
+
+</article>
+
+</div>
+{% endblock %}

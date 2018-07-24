@@ -1,0 +1,111 @@
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+	<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'main:main' %}">astrotest</a>
+	<span class="col-sm-9 px-sm-0 px-5 navbar-text text-right">Logged in as: {{ request.user }}</span>
+	<a class="nav-item btn btn-outline-primary my-2 my-sm-0 px-5 px-sm-3" type="button" href="{% url 'logout' %}?next={% url 'login' %}">Log Out</a>
+</nav>
+
+<div class="container-fluid">
+	<div class="row">
+		<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+			<div class="sidebar-sticky">
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>GENERAL</span>
+				</h6>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						{% url 'main' as url %}
+						<a href="{{ url }}"
+							{% if request.path == url %}
+							class="nav-link active"
+							{% elif request.path == '/' %}
+							class="nav-link active"
+							{% else %}
+							class="nav-link"
+							{% endif %}
+						>Main</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="nav-link">Profile</a>
+					</li>
+					{% if request.user.is_admin == True %}
+					<li class="nav-item">
+						<a href="/admin" class="nav-link">Django Administration</a>
+					</li>
+					{% endif %}
+				</ul>
+
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>EXAMS</span>
+				</h6>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							Create new exam
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							All exams
+						</a>
+					</li>
+
+				</ul>
+
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>COURSES</span>
+				</h6>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							View/edit existing courses
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							Add a course
+						</a>
+					</li>
+				</ul>
+
+
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>OBJECTIVES</span>
+				</h6>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							View/edit existing objectives
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							Add an objective
+						</a>
+					</li>
+				</ul>
+
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>QUESTIONS</span>
+				</h6>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							View/edit existing questions
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							Add a question
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							Bulk question import tool
+						</a>
+					</li>
+				</ul>
+
+			</div>
+		</nav>
+	</div>
+</div>
