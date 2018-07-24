@@ -1,0 +1,7 @@
+#!/bin/sh
+
+touch password_reset_subject.txt
+touch password_reset_email.html
+touch password_reset_done.html
+touch password_reset_confirm.html
+touch password_reset_complete.html
