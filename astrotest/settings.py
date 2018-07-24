@@ -41,9 +41,8 @@ DJANGO_APPS = [
 
 MY_APPS = [
     'main',
-    'questions',
-    'home',
     'accounts',
+    'questions',
     'exams',
     ]
 
