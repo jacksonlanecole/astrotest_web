@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 app_url_patterns = [
-    path('', include('home.urls')),
+    path('', include('main.urls')),
     path('accounts/', include('accounts.urls')),
     path('questions/', include('questions.urls')),
     path('exams/', include('exams.urls')),

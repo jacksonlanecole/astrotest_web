@@ -40,6 +40,7 @@ DJANGO_APPS = [
 ]
 
 MY_APPS = [
+    'main',
     'questions',
     'home',
     'accounts',
@@ -167,6 +168,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ###############################################################################
 
-#AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.User'
 JQUERY_URL = False           # USES JQUERY FROM GOOGLE CDN
 USE_DJANGO_JQUERY = True     # NEEDED for smart_selects
