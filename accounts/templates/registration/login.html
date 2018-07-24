@@ -1,43 +1,39 @@
-{% extends 'base.html' %}
-{% block title %} Login
-{% endblock %}
-{% block extrahead %}
-<style>
-</style>
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/signin.css' %}" type="text/css">
 {% endblock %}
 
-{% block precontent %}
-<div class="jumbotron">
-    <div class="container">
-        <h1 class="display-2">User Login</h1>
-    </div>
-</div>
-<main class="container">
-</main>
-{% endblock %}
+<!-- Extends the header -->
+{% block title %}Login{% endblock %}
 
 {% block content %}
-{% if form.errors %}
+<body class="text-center">
+	{% if form.errors %}
 	<p>ERROR: There's something wrong with the information you've entered.</p>
-{% endif %}
+	{% endif %}
 
-{% if next %}
-	<p>ERROR: You cannont access that page.</p>
-{% endif %}
+	{% if next %}
+	<p>ERROR: You cannot access that page.</p>
+	{% endif %}
 
-{% if not user.is_authenticated %}
-<form method="post" action="{%url 'accounts:login' %}">
-	{% csrf_token %}
+	{% if not user.is_authenticated %}
+	<form class="form-signin" method="post" action="{%url 'accounts:login' %}">
+		{% csrf_token %}
+		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+		<input required type="email" class="form-control" name="email" id="email" placeholder="Email">
+		<input required type="password" class="form-control" name="password" id="password" placeholder="Password">
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<a href="{% url 'accounts:register' %}">No account? Register!</a>
 
-	<p>Username: {{ form.username }}</p>
-	<p>Password: {{ form.password }}</p>
+		<input type="hidden" name="next" value="{{ next }}">
+	</form>
+	{% else %}
+	<p>You are already logged in as: {{ user.username }}.</p>
+	<!-- This shouldn't be visible at all based on the logout request preceeding the rest of the view.-->
+	{% endif %}
 
-	<p><input type="submit" value="login"></p>
-	<input type="hidden" name="next" value="{{ next }}">
-</form>
-{% else %}
-<p>You are already logged in as: {{ user.username }}.</p>
-{% endif %}
+	<footer class="text-muted">
+	</footer>
 
 {% endblock %}
-

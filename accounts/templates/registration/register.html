@@ -1,43 +1,38 @@
-{% extends 'base.html' %}
-{% block title %} Register
-{% endblock %}
-{% block extrahead %}
-<style>
-</style>
-{% endblock %}
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+{% block title %}Register{% endblock %}
 
-{% block precontent %}
-<div class="jumbotron">
-    <div class="container">
-        <h1 class="display-2">User Registration</h1>
-    </div>
-</div>
-<main class="container">
-</main>
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}" type="text/css">
 {% endblock %}
 
 {% block content %}
+<body class="text-center">
+	{% if next %}
+	<p>ERROR: You cannot access that page.</p>
+	{% endif %}
 
-{% if next %}
-	<p>ERROR: You cannont access that page.</p>
-{% endif %}
-
-{% if not user.is_authenticated %}
-	<form method="post" action="{% url 'accounts:register' %}">
+	{% if not user.is_authenticated %}
+	<form method="post" class="form-register" action="{% url 'accounts:register' %}">
 		{% csrf_token %}
+		<h1 class="h3 mb-3 font-weight-normal">User Registration</h1>
 		{% if form.errors %}
-			<p>ERROR: There's something wrong with the information you've entered.</p>
+		<p>ERROR: There's something wrong with the information you've entered.</p>
+		{% endif %}
+		<input required type="email" class="form-control" name="email" id="email" placeholder="Email">
+		<input required type="text" class="form-control" name="first_name" id="first_name" placeholder="First name">
+		<input required type="text" class="form-control" name="last_name" id="last_name" placeholder="Last name">
+		<input required type="password" class="form-control" name="password1" id="password1" placeholder="Password">
+		<input required type="password" class="form-control" name="password2" id="password2" placeholder="Confirm password">
+
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+		<a href="{% url 'accounts:login' %}">Already have an account? Login!</a>
+
+		<input type="hidden" name="next" value="{{ next }}">
+
+		{% else %}
+		<p>You are currently logged in as <b>{{ user.username }}</b>. Please <a href="{% url 'accounts:logout' %}">log out</a>
+		in order to register as a new user.</p>
 		{% endif %}
 
-		{{ form.as_p }}
-
-		<p><input type="submit" value="Register"></p>
-	</form>
-
-{% else %}
-<p>You are currently logged in as <b>{{ user.username }}</b>. Please <a href="{% url 'accounts:logout' %}">log out</a>
-   in order to register as a new user.</p>
-{% endif %}
-
 {% endblock %}
-
